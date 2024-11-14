@@ -1,0 +1,64 @@
+{% extends "base.html" %} <!--Creates the home template by extending from the base.html template, it will use base.html but with modifications-->
+{% block title %}Sparkle Minds - Edit Accounts{% endblock %} <!--block title is the tab names-->
+
+{% macro render_field(field) %}
+ {{ field.label }}
+ {{ field(**kwargs)|safe }}
+ {% if field.errors %}
+ {% for error in field.errors %}
+ <div class="text-danger">{{ error }}</div>
+ {% endfor %}
+ {% endif %}
+{% endmacro %}
+{% block content %}
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Edit Details</h4>
+                </div>
+                <form method="POST" >
+                    {{ form.hidden_tag() }}
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <label for="name" class="form-label">Name</label>
+                            {{ form.name(class_='form-control') }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="email" class="form-label">Email</label>
+                            {{ form.email(class_='form-control') }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="password" class="form-label">New Password</label>
+                            {{ form.password(class_='form-control') }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="confirm" class="form-label">Confirm New Password</label>
+                            {{ form.confirm(class_='form-control') }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="confirm" class="form-label">Admin</label>
+                            {{ form.admin(class_='form-control') }}
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        {{ form.submit(class_='btn btn-primary profile-button') }}
+                        {{ form.cancel(class_='btn btn-danger profile-button') }}
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

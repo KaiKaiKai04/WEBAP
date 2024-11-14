@@ -1,0 +1,86 @@
+{% extends "base.html" %} <!--Creates the home template by extending from the base.html template, it will use base.html but with modifications-->
+{% block title %}Sparkle Minds - FAQ{% endblock %} <!--block title is the tab names-->
+
+{% block content %}
+<style>
+    .accordion {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      transition: 0.4s;
+    }
+    
+    .active, .accordion:hover {
+      background-color: #ccc;
+    }
+    
+    .accordion:after {
+      content: '\002B';
+      color: #777;
+      font-weight: bold;
+      float: right;
+      margin-left: 5px;
+    }
+    
+    .active:after {
+      content: "\2212";
+    }
+    
+    .panel {
+      padding: 0 18px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+    }
+    </style>
+    </head>
+    <body>
+    
+    <h1 class="display-4">FAQ</h1>
+    <p>Welcome to our FAQ page! Here you'll find answers to the most commonly asked questions about our classes, schedules, and transactions. 
+        <br><br> Whether you need help with account setup, troubleshooting, or understanding our schedules, we've got you covered. If you can't find what you're looking for, please contact our support team for further assistance.</p>
+    
+    <button class="accordion">Q: How do I contact customer support?</button>
+    <div class="panel">
+      <p>A: You can contact our customer support team by visiting the 'Create Support Ticket' page and filling out the form. You can also reach us via email.</p>
+    </div>
+
+    <button class="accordion">Q: How do I change my account settings?</button>
+    <div class="panel">
+      <p>A: You can change your settings by logging into your account, navigating to the profile picture and clicking onto "View Profile". You can then update your preferences.</p>
+    </div>
+
+    <button class="accordion">Q: Can I have multiple accounts with the same email address?</button>
+    <div class="panel">
+      <p>A: No, each email address can only be associated with one account. If you need to create another account, please use a different email address.</p>
+    </div>
+
+    <button class="accordion">Q: How do I view the reply made by the staff for my customer support ticket?</button>
+    <div class="panel">
+      <p>A: You can view through the email you submitted or you can also search for your support ticket and you can click onto the "View Reply" button to view the response made by our staff members. </p>
+    </div>
+    
+    <script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      });
+    }
+    </script>
+{% endblock %}

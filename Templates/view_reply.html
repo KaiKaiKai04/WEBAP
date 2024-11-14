@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Sparkle Minds - View Reply{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Reply Details</h1>
+
+{% if reply %}
+    <div>
+        <p><strong>Receiver Email:</strong> {{ reply.receiver_email }}</p>
+        <p><strong>Sender Email:</strong> {{ reply.sender_email }}</p>
+        <p><strong>Subject:</strong> {{ reply.reply_subject }}</p>
+        <p><strong>Message:</strong> {{ reply.reply_message }}</p>
+    </div>
+{% else %}
+    <div>
+        <p>{{ error }}</p>
+    </div>
+{% endif %}
+<div>
+    <button onclick="window.history.back()" class="btn btn-secondary">Back</button>
+</div>
+{% endblock %}

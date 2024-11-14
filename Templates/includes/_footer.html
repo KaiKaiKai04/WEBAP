@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>footer</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='_footer.css') }}" />
+  </head>
+  <body>
+    <div class="footer">
+      <div class="footer-container">
+        <div class="social-media">
+          <a href="https://www.instagram.com" target="_blank">
+            <img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram">
+        </a>
+        <a href="https://www.facebook.com" target="_blank">
+            <img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook">
+        </a>
+        <a href="https://twitter.com" target="_blank">
+            <img src="{{ url_for('static', filename='img/twitter.png') }}" alt="Twitter">
+        </a>
+        <a href="https://www.tiktok.com" target="_blank">
+            <img src="{{ url_for('static', filename='img/tiktok.png') }}" alt="TikTok">
+        </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy;Sparkle Mind. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
+

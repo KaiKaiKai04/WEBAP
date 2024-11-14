@@ -1,0 +1,70 @@
+{% extends "base.html" %} <!--Creates the home template by extending from the base.html template, it will use base.html but with modifications-->
+{% block title %}Sparkle Minds - View Profile{% endblock %} <!--block title is the tab names-->
+
+{% block content %}
+<div id="content">   
+    <h1>Transactions Database</h1>
+    <hr>
+    <table>
+        <tr>
+            <th>Transaction ID</th>
+            <th>User ID</th>
+            <th>Credit Card Number</th>
+            <th>Product/Service</th>
+            <th>Cost</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        {%for key in tx_dict%}
+            <tr>
+                <td><a href="/tx/{{tx_dict[key].get_tx_id()}}">{{tx_dict[key].get_tx_id()}}</a></td>
+                <td>{{tx_dict[key].get_user_id()}}</td>
+                <td>{{tx_dict[key].get_cc()}}</td>
+                <td>{{tx_dict[key].get_product_name()}}</td>
+                <td>${{tx_dict[key].get_cost()}}.00</td>
+                <td>{{tx_dict[key].get_status()}}</td>
+                <td>
+                    {% if tx_dict[key].get_status() == "Pending"%}
+                        <button><a href="/tx/{{tx_dict[key].get_tx_id()}}/edit"><h3 class="button-text">Edit</h3></a></button>
+                    {% endif %}
+                    <button><a href="/tx/{{tx_dict[key].get_tx_id()}}/delete"><h3 class="button-text">Delete</h3></a></button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<style>
+    table {
+        width: 100%;
+    }
+
+    h1 {
+        margin-bottom: 50px;
+    }
+
+    button{
+        background-color: rgb(255, 255, 0);
+        text-align: center;
+        width: 100px;
+        height: fit-content;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 2px 0 2px 0;
+    }
+
+    .button-text{
+        color: black;
+        font-size: 15px;
+        margin:0;
+        font-weight: bold;
+        font-family:'Courier New', Courier, monospace;
+    }
+
+    #content {
+        padding-left: 20px;
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+
+</style>
+{% endblock %}

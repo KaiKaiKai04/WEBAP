@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Sparkle Minds - View Past Support Ticket{% endblock %}
+
+{% block content %}
+<h1 class="display-4">View Past Support Ticket</h1>
+
+<form method="POST" action="{{ url_for('viewpastST') }}">
+    <div class="form-group">
+        <label for="ticket_number">Enter Support Ticket Number:</label>
+        <input type="text" id="ticket_number" name="ticket_number" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% if error %}
+    <script>
+        alert("{{ error }}");
+    </script>
+{% endif %}
+
+{% endblock %}

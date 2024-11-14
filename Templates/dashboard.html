@@ -1,0 +1,174 @@
+{% extends "base.html" %} <!--Creates the home template by extending from the base.html template, it will use base.html but with modifications-->
+{% block title %}Sparkle Minds - Home{% endblock %} <!--block title is the tab names-->
+
+{% block content %}
+<hr>
+<h3><b>Welcome Back!! {{user}}</b></h3>
+<hr>
+<div class="jumbotron text-center">
+  <style>
+    * {box-sizing: border-box;}
+    body {font-family: Verdana, sans-serif;}
+    .mySlides {display: none;}
+    img {vertical-align: middle;}
+    
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 1000px;
+      max-height: 500px;
+      position: relative;
+      margin: auto;
+    }
+
+    /*Images*/
+    .slideshow-container img{
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+    }
+    
+    /* Caption text */
+    .text {
+      font-size: 40px;
+      padding: 8px 12px;
+      position: absolute;
+      bottom: 8px;
+      width: 100%;
+      text-align: left;
+    }
+    
+    /* Number text (1/3 etc) */
+    .numbertext {
+      color: #f2f2f2;
+      font-size: 10px;
+      padding: 8px 12px;
+      position: absolute;
+      top: 0;
+    }
+    
+    /* The dots/bullets/indicators */
+    .dot {
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.2s ease;
+    }
+    
+    .active {
+      background-color: #717171;
+    }
+    
+    /* Fading animation */
+    .fade {
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+    
+    @keyframes fade {
+      from {opacity: .4} 
+      to {opacity: 1}
+    }
+    
+    /* On smaller screens, decrease text size */
+    @media only screen and (max-width: 300px) {
+      .text {font-size: 11px}
+    }
+
+    .bootstrap-containers {
+      background-color: rgb(172, 192, 214);
+      border-radius: 15px; /* Adjust the radius as needed */
+      padding: 15px; /* Optional: Add some padding for better spacing */
+      margin-bottom: 15px; 
+    }
+
+    .bootstrap-containers h3{
+      color: black; /* Set text color to black */
+    }
+
+    .bootstrap-containers p {
+      color: black; /* Set text color to black */
+      font-size: 15px;
+    }
+
+
+    </style>
+    
+    <div class="slideshow-container">
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 3</div>
+        <a href="/viewClasses"><img src="https://www.voicesofyouth.org/sites/voy/files/images/2022-03/educ.jpg" style="width:100%"></a>
+        <div class="text" style="color: #f2f2f2">View Classes</div>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 3</div>
+        <a href="/viewCalendar"><img src="https://i0.wp.com/datachant.com/wp-content/uploads/2016/01/2-01.png?ssl=1" style="width:100%"></a>
+        <div class="text" style="color: #080808">View Schedules</div>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 3</div>
+        <a href="/viewtx"><img src="https://www.paymentsjournal.com/wp-content/uploads/2022/02/x_22-scaled.jpg" style="width:100%"></a>
+        <div class="text" style="color: #080808">View Transactions</div>
+      </div>
+    </div>
+    <br>
+    
+    <div style="text-align:center">
+      <span class="dot"></span> 
+      <span class="dot"></span> 
+      <span class="dot"></span> 
+    </div>
+    
+    <script>
+    let slideIndex = 0;
+    showSlides();
+    
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+      setTimeout(showSlides, 2000); // Change slideshow every 2 seconds
+    }
+    </script>
+</div>
+  
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5 bootstrap-containers">
+      <a href="/createSupportTicket">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa4EumhIvil5zaX6hokuvtBzuTTnsZfypfGw&s" style="width:100%">
+      <h3>Help & Support</h3>
+      <p>We'd love to hear from you!</p>
+      <p>Whether you have questions, feedback or require assistance, feel free to reach put to us!</p>
+      <p>Our team is here to help and will get back to you as soon as possible.</p>
+      </a>
+    </div>
+    
+    <div class="col-md-2"></div>
+
+    <div class="col-sm-5 bootstrap-containers">
+      <a href="/FAQ">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUSijiBYI9OQM2gx8FXZc6Lwo2xJrSQMYCqg&s">
+      <h3>FAQ</h3>
+      <p>Find answers to the most common questions about our services, policies and more!</p>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

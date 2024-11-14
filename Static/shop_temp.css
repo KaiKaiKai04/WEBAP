@@ -1,0 +1,43 @@
+#product-img {
+    border-width: 2px;
+    width: 23vw;
+    height: 23vw;
+}
+
+#product-img:hover{
+    border: solid;
+    border-color: rgb(136, 136, 255);
+}
+
+#brand{
+    font-size: 10px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    flex: 1 1 70%;
+    font-weight: lighter;
+}
+
+#desc{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+#name{
+    margin-top: 1px;
+    margin-bottom: 0;
+    flex: 0 0 100%;
+    font-size: 15px;
+}
+
+#price{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size:medium;
+    font-weight: bold;
+    text-align: center;
+}
+
+#box{
+    width: 23vw;
+    margin: 3px;
+}

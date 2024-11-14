@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}View Classes{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Classes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='viewClasses.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>View Classes</h1>
+        <button onclick="showSummary()">Show Class Summary</button>
+        <button onclick="showTotalHours()">Show Total Class Hours</button>
+        <button id="addClassBtn">Add Class</button>
+        <div id="classForm" style="display: none;">
+            <form action="{{ url_for('add_class') }}" method="POST">
+                <input type="text" name="title" placeholder="Title" required>
+                <textarea name="description" placeholder="Description" required></textarea>
+                <input type="date" name="date" required>
+                <input type="time" name="time" required>
+                <label for="duration">Duration:</label>
+                <select id="duration" name="duration" required>
+                    <option value="1">1 hour</option>
+                    <option value="2">2 hours</option>
+                    <option value="3">3 hours</option>
+                    <option value="4">4 hours</option>
+                </select>
+                <div class="form-buttons">
+                    <button type="submit">Add Class</button>
+                    <button type="button" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="editFormContainer" style="display: none;">
+            <form id="editForm" action="" method="POST" onsubmit="return confirmEdit()">
+                <input type="hidden" name="id" id="editClassId">
+                <input type="text" name="title" id="editTitle" placeholder="Title" required>
+                <textarea name="description" id="editDescription" placeholder="Description" required></textarea>
+                <input type="date" name="date" id="editDate" required>
+                <input type="time" name="time" id="editTime" required>
+                <select id="editDuration" name="duration" required>
+                    <option value="1">1 hour</option>
+                    <option value="2">2 hours</option>
+                    <option value="3">3 hours</option>
+                    <option value="4">4 hours</option>
+                </select>
+                <div class="form-buttons">
+                    <button type="submit">Confirm Edit</button>
+                    <button type="button" id="cancelEditBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+        <div id="classesContainer">
+            {% for class in classes %}
+            <div class="class-item">
+                <h2>Title: {{ class.title }}</h2>
+                <p>Description: {{ class.description }}</p>
+                <p>DateTime: {{ class.date }} {{ class.time }}</p>
+                <p>Duration: {{ class.duration }} hours</p>
+                <button onclick="editClass('{{ class.id }}', '{{ class.title }}', '{{ class.description }}', '{{ class.date }}', '{{ class.time }}', '{{ class.duration }}')">Edit</button>
+                <form action="{{ url_for('delete_class', id=class.id) }}" method="POST" onsubmit="return confirmDelete()">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='viewClasses.js') }}"></script>
+    
+</body>
+</html>
+
+{% endblock %}

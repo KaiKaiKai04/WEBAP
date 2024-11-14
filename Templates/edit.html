@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Edit Transaction{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="display-4">Edit credit card details</h1>
+
+<form method="POST" action="/tx/{{tx.get_tx_id()}}/edit">
+    <div class="form-group">
+        {{ render_field(form.name, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.phone_number, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.card_name, class="form-control") }}
+      </div>
+    <div class="form-group">
+        {{ render_field(form.card_number, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.exp_date, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.cvc, class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ render_field(form.status, class="form-control") }}
+    </div>
+    <button>Submit</button>
+    <style>
+        button {
+            background-color: rgb(79, 211, 255);
+            width: 100px;
+            height: fit-content;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 20px 20px 20px 0;
+            font-weight: bold;
+        }
+
+        form{
+            margin-bottom: 50px;
+        }
+    </style>
+</form>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block title %}Product Page{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="../static/product.css">
+  </head>
+<body>
+    <div id="main-product">
+        <div>
+            <img id="product-img-product" src="{{ product['src'] }}">
+        </div>
+        <div id="desc-box">
+            <div id="name">
+                <h1 id="product">{{ product['name'] }}</h1>
+            </div>
+            <p id="passage">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <a href="/creditcard/{{ product_id }}"><div class="buy">
+                <h3>Buy Now</h3>
+            </div></a>
+            <ul id="points">
+                <li class="li">Description of the product</li>
+                <li class="li">Description of the product</li>
+                <li class="li">Description of the product</li>
+                <li class="li">Description of the product</li>
+            </ul>
+            <h4>${{ product['price'] }}.00</h4>
+        </div>
+    </div>
+    <div>
+        <h3>Related Products</h3>
+        <div id="catalogue">
+            <ul>
+                {%for key, product in products_dict.items() %}
+                    <li>
+                        <div id="box">
+                            <a href="{{ product['url'] }}">
+                                <img id="product-img" src="{{ product['src'] }}">
+                            </a>
+                            <div id="desc">
+                                <p id="brand">Sparkle Minds</p>
+                                <h3 id="price">${{ product['price'] }}.00</h3>
+                                <h5 id="name">{{ product['name'] }}</h5>
+                            </div>
+                        </div>
+                        <style>
+                            #product-img {
+                                border-width: 2px;
+                                width: 23vw;
+                                height: 23vw;
+                            }
+    
+                            #product-img:hover{
+                                border: solid;
+                                border-color: rgb(136, 136, 255);
+                            }
+    
+                            #brand{
+                                font-size: 10px;
+                                margin-top: 1px;
+                                margin-bottom: 1px;
+                                flex: 1 1 70%;
+                                font-weight: lighter;
+                            }
+    
+                            #desc{
+                                display:flex;
+                                flex-wrap: wrap;
+                            }
+    
+                            #name{
+                                margin-top: 1px;
+                                margin-bottom: 0;
+                                flex: 0 0 100%;
+                                font-size: 15px;
+                            }
+    
+                            #price{
+                                margin-top: 0;
+                                margin-bottom: 0;
+                                font-size:medium;
+                                font-weight: bold;
+                                text-align: center;
+                            }
+    
+                            #box{
+                                width: 23vw;
+                                margin: 3px;
+                            }
+
+                            #catalogue{
+                                margin-bottom: 50px;
+                            }
+                        </style>
+                    </li>
+                {% endfor%}
+            </ul>
+        </div>
+        <style>
+            ul {
+                list-style-type: none;
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: scroll;
+            }
+    
+            div#catalogue {
+                display: flex;
+            }
+        </style>
+    </div>
+</body>
+{% endblock %}

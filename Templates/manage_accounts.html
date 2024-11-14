@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+<!--Creates the home template by extending from the base.html template, it will use base.html but with modifications-->
+{% block title %}Sparkle Minds - Manage Accounts{% endblock %} <!--block title is the tab names-->
+
+{% block content %}
+<div class="tablecontainer">
+    <h2 class="mt-4">User Account Management</h2>
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Admin</th>
+                <th> </th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for user in users %}
+            {% if user[1] != 'deleted account' %}
+            <tr>
+                <td>{{ user[1].get_id()}}</td>
+                <td>{{ user[1].get_name() }}</td>
+                <td><a href="mailto:{{ user[1].get_email() }}">{{ user[1].get_email() }}</a></td>
+                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{
+                    user[1].get_password() }}</td>
+                <td>{{ user[1].get_admin() }}</td>
+                <td><a href="/updateUser/{{user[1].get_id()}}" class="btn btn-warning">Edit</a></td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_user', id=user[0]) }}"
+                        onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

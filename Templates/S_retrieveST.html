@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% block title %}Sparkle Minds - Retrieve Support Tickets{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Retrieve Support Tickets</h1>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link {% if current_tab == 'SR' %}active{% endif %}" href="{{ url_for('S_retrieveST', tab='SR') }}">Current Support Ticket Records</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if current_tab == 'AR' %}active{% endif %}" href="{{ url_for('S_retrieveST', tab='AR') }}">Archived Support Ticket Records</a>
+    </li>
+</ul>
+
+<!-- Tab content -->
+<div class="tab-content">
+    <!-- Current Support Tickets Tab -->
+    <div class="tab-pane container-fluid {% if current_tab == 'SR' %}active{% endif %}" id="SR">
+        <br>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Action Buttons -->
+            <div id="action-buttons" class="d-flex">
+                <button id="selectButton" class="btn btn-primary">Select</button>
+                <button id="archiveButton" class="btn btn-danger ml-2" style="display:none;">Archive All</button>
+                <button id="cancelButton" class="btn btn-secondary ml-2" style="display:none;">Cancel</button>
+            </div>
+            
+            <!-- Filter Form -->
+            <div class="ml-auto">
+                <form action="{{ url_for('S_retrieveST', tab='SR') }}" method="GET" class="form-inline">
+                    <div class="form-group">
+                        <label for="statusFilter" class="mr-2">Filter by Status:</label>
+                        <select id="statusFilter" name="status" class="form-control">
+                            <option value="">All</option>
+                            <option value="Pending" {% if request.args.get('status') == 'Pending' %}selected{% endif %}>Pending</option>
+                            <option value="Completed" {% if request.args.get('status') == 'Completed' %}selected{% endif %}>Completed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary ml-2">Filter</button>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            {% if support_ticket_count == 0 %}
+            <p>There are no support tickets.</p>
+            {% elif support_ticket_count == 1 %}
+            <p>There is 1 support ticket.</p>
+            {% else %}
+            <p>There are {{ support_ticket_count }} support tickets.</p>
+            {% endif %}
+        </div>
+
+        <!-- Support Tickets Table -->
+        <div id="tickets-container">
+            <form id="ticketsForm" action="{{ url_for('batch_archive_ST') }}" method="POST">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th id="checkboxHeader" style="display:none;"><input type="checkbox" id="selectAllCheckbox"></th>
+                        <th>Ticket ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for support_ticket in support_ticket_list %}
+                    <tr class="ticket-row">
+                        <td class="checkbox-cell" style="display:none;">
+                            <input type="checkbox" name="ticket_ids" value="{{ support_ticket.get_support_id() }}">
+                        </td>
+                        <td>{{ support_ticket.get_support_id() }}</td>
+                        <td>{{ support_ticket.get_first_name() }}</td>
+                        <td>{{ support_ticket.get_last_name() }}</td>
+                        <td>{{ support_ticket.get_subject() }}</td>
+                        <td>{{ support_ticket.get_status() }}</td>
+                        <td><a href="{{ url_for('ST_details', ticket_number=support_ticket.get_support_id()) }}" class="btn btn-warning">Read</a></td>
+                        <td><a href="{{ url_for('STReply', ticket_number=support_ticket.get_support_id()) }}" class="btn btn-info">Reply</a></td>
+                        <td>
+                            <div>
+                                <form action="{{ url_for('archive_ST', id=support_ticket.get_support_id()) }}" method="POST">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{ support_ticket.get_support_id() }}">
+                                        Archive
+                                    </button>
+                                    <!-- The Modal -->
+                                    <div class="modal fade" id="myModal_{{ support_ticket.get_support_id() }}" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Archive Confirmation</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to archive support ticket for {{ support_ticket.get_first_name() }} {{ support_ticket.get_last_name() }}?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="submit" value="Archive" class="btn btn-danger">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <!-- Hidden checkbox for batch archiving -->
+                <input type="submit" id="batchArchiveSubmit" style="display:none;">
+            </form>            
+        </div>
+    </div>
+
+    <!-- Archived Support Tickets Tab -->
+    <div class="tab-pane container-fluid {% if current_tab == 'AR' %}active{% endif %}" id="AR">
+        <br>
+        <div>
+            {% if archived_ticket_count == 0 %}
+            <p>There are no archived support tickets.</p>
+            {% elif archived_ticket_count == 1 %}
+            <p>There is 1 archived support ticket.</p>
+            {% else %}
+            <p>There are {{ archived_ticket_count }} archived support tickets.</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Subject</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for archived_ticket in archived_ticket_list %}
+                <tr>
+                    <td>{{ archived_ticket.get_support_id() }}</td>
+                    <td>{{ archived_ticket.get_first_name() }}</td>
+                    <td>{{ archived_ticket.get_last_name() }}</td>
+                    <td>{{ archived_ticket.get_subject() }}</td>
+                    <td><a href="{{ url_for('archived_ticket_details', ticket_number=archived_ticket.get_support_id()) }}" class="btn btn-warning">Read</a></td>
+                    <td><form action="{{ url_for('unarchive_ST', id=archived_ticket.get_support_id()) }}" method="POST">
+                        <button type="submit" class="btn btn-primary">Unarchive</button>
+                    </form></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var selectButton = document.getElementById('selectButton');
+        var archiveButton = document.getElementById('archiveButton');
+        var cancelButton = document.getElementById('cancelButton');
+        var checkboxCells = document.querySelectorAll('.checkbox-cell');
+        var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        var checkboxHeader = document.getElementById('checkboxHeader');
+        var ticketsForm = document.getElementById('ticketsForm');
+        var batchArchiveSubmit = document.getElementById('batchArchiveSubmit');
+
+        selectButton.addEventListener('click', function () {
+            selectButton.style.display = 'none';
+            archiveButton.style.display = 'inline-block';
+            cancelButton.style.display = 'inline-block';
+            checkboxHeader.style.display = 'table-cell';
+            checkboxCells.forEach(function (cell) {
+                cell.style.display = 'table-cell';
+            });
+        });
+
+        cancelButton.addEventListener('click', function () {
+            selectButton.style.display = 'inline-block';
+            archiveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+            checkboxHeader.style.display = 'none'; 
+            checkboxCells.forEach(function (cell) {
+                cell.style.display = 'none';
+            });
+            // Uncheck all checkboxes
+            ticketsForm.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+                checkbox.checked = false;
+            });
+        });
+
+        selectAllCheckbox.addEventListener('change', function () {
+            var isChecked = selectAllCheckbox.checked;
+            ticketsForm.querySelectorAll('input[name="ticket_ids"]').forEach(function (checkbox) {
+                checkbox.checked = isChecked;
+            });
+        });
+
+        archiveButton.addEventListener('click', function () {
+            batchArchiveSubmit.click(); // Trigger the form submission for batch archiving
+        });
+    });
+</script>
+
+{% endblock %}

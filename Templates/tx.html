@@ -1,0 +1,54 @@
+{% extends "base.html" %} <!--Creates the home template by extending from the base.html template, it will use base.html but with modifications-->
+{% block title %}Sparkle Minds - View Profile{% endblock %} <!--block title is the tab names-->
+
+{% block content %}
+<div id="content">
+    <h1>Past Transactions</h1>
+    <table>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Product/Service</th>
+            <th>Transaction</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        {%for transaction in transactions%}
+            <tr>
+                <td><a href="/user/tx/{{transaction.get_tx_id()}}">{{transaction.get_tx_id()}}</a></td>
+                <td>{{transaction.get_product_name()}}</td>
+                <td>{{transaction.get_cost()}}</td>
+                <td>{{transaction.get_status()}}</td>
+                {% if transaction.get_status() == "Pending"%}
+                    <td><a href="/user/tx/{{transaction.get_tx_id()}}/cancel"><button>Cancel</button></a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    <style>
+        table {
+            width: 100%;
+        }
+
+        h1 {
+            margin-bottom: 50px;
+        }
+
+        button {
+            background-color: red;
+            text-align: center;
+            width: 100px;
+            height: fit-content;
+            font-weight: bold;
+            font-family:'Courier New', Courier, monospace;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        #content {
+            padding-left: 20px;
+            margin-bottom: 50px;
+            margin-top: 50px;
+        }
+    </style>
+</div>
+{% endblock %}

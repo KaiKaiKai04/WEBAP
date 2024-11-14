@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}View Only Classes{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Only Classes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='viewOnlyClasses.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>View Only Classes</h1>
+        <a href="{{ url_for('shop') }}" class="button">Find Out More</a>
+        
+        <div id="classesContainer">
+            {% for class in classes %}
+            <div class="class-item">
+                <h2>{{ class.title }}</h2>
+                <p>{{ class.description }}</p>
+                <p>{{ class.date }} {{ class.time }}</p>
+                <p>{{ class.duration }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='viewOnlyClasses.js') }}"></script>
+</body>
+</html>
+{% endblock %}

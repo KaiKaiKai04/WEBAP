@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Sparkle Minds - Support Ticket Details{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Support Ticket Details</h1>
+
+{% if support_ticket %}
+<table>
+    <div>
+        <tr>
+            <td><strong>Support Ticket ID:</strong> {{ support_ticket.get_support_id() }}</td>
+        </tr>
+        <tr>
+            <td><strong>First Name:</strong> {{ support_ticket.get_first_name() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Last Name:</strong> {{ support_ticket.get_last_name() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong> {{ support_ticket.get_email() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Subject:</strong> {{ support_ticket.get_subject() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Message:</strong> {{ support_ticket.get_message() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Status:</strong> {{ support_ticket.get_status() }}</td>
+        </tr>
+    </div>
+</table>
+
+<div class="d-flex gap-5">
+    <a href="{{ url_for('update_ST', stn=support_ticket.get_support_id()) }}" class="btn btn-warning">Update</a>
+    <a href="{{ url_for('view_reply', ticket_number=support_ticket.get_support_id()) }}" class="btn btn-info">View Reply</a>
+
+    <!-- Form for delete button -->
+    <form action="{{url_for('archive_ST', id=support_ticket.get_support_id())}}" method="POST">
+        <!-- Button to Open the Modal -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{support_ticket.get_support_id()}}">
+            Delete
+        </button>
+        
+        <!-- The Modal -->
+        <div class="modal" id="myModal_{{support_ticket.get_support_id()}}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Confirmation</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Are you sure you want to delete support ticket for {{support_ticket.get_first_name()}} {{support_ticket.get_last_name()}}?
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% else %}
+    <div>
+        <p>{{ error }}</p>
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700");
+
+@font-face {
+  font-family: localfont;
+  src: url("fonts/Montserrat-Bold.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat, localfont;
+  font-weight: bold;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.footer {
+  background-color: #333;
+  color: #f5f5f5;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.footer-container {
+  margin: 0 30px;
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center;
+}
+
+.social-media {
+  padding-top: 20px;
+}
+
+.social-media a {
+  margin-left: 5px; /* Add margin to the left of icons */
+  text-decoration: none;
+}
+
+.social-media img {
+  filter: invert(100%);
+  width: auto;
+  height: 70px;
+}
+
+.footer-bottom {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.footer p {
+  font-weight: 400;
+}

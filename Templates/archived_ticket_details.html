@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Sparkle Minds - Archived Ticket Details{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Archived Ticket Details</h1>
+
+{% if archived_ticket %}
+<table>
+    <div>
+        <tr>
+            <td><strong>Support Ticket ID:</strong> {{ archived_ticket.get_support_id() }}</td>
+        </tr>
+        <tr>
+            <td><strong>First Name:</strong> {{ archived_ticket.get_first_name() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Last Name:</strong> {{ archived_ticket.get_last_name() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong> {{ archived_ticket.get_email() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Subject:</strong> {{ archived_ticket.get_subject() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Message:</strong> {{ archived_ticket.get_message() }}</td>
+        </tr>
+        <tr>
+            <td><strong>Status:</strong> {{ archived_ticket.get_status() }}</td>
+        </tr>
+    </div>
+</table>
+
+{% if reply %}
+<h2 class="mt-4">Reply Details</h2>
+<table>
+    <div>
+        <tr>
+            <td><strong>Sender:</strong> {{ reply.sender_email }}</td>
+        </tr>
+        <tr>
+            <td><strong>Receiver Email:</strong> {{ reply.receiver_email }}</td>
+        </tr>
+        <tr>
+            <td><strong>Subject:</strong> {{ reply.reply_subject }}</td>
+        </tr>
+        <tr>
+            <td><strong>Message:</strong> {{ reply.reply_message }}</td>
+        </tr>
+    </div>
+</table>
+{% endif %}
+
+<div class="d-flex gap-2 mt-4">
+    <a href="{{ url_for('S_retrieveST', tab='AR') }}" class="btn btn-secondary">Back</a>
+</div>
+
+{% else %}
+    <div>
+        <p>{{ error }}</p>
+    </div>
+{% endif %}
+
+{% endblock %}

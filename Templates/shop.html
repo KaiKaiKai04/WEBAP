@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Shop{% endblock %}
+
+{% block content %}
+    <h1 id="h1">Welcome to the Shop</h1>
+    <div id="catalogue">
+        <ul>
+            {%for key, product in products_dict.items() %}
+                <li>
+                    <div id="box">
+                        <a href="{{ product['url'] }}">
+                            <img id="product-img" src="{{ product['src'] }}">
+                        </a>
+                        <div id="desc">
+                            <p id="brand">Sparkle Minds</p>
+                            <h3 id="price">${{ product['price'] }}.00</h3>
+                            <h5 id="name">{{ product['name'] }}</h5>
+                        </div>
+                    </div>
+                    <style>
+                        #product-img {
+                            border-width: 2px;
+                            width: 23vw;
+                            height: 23vw;
+                        }
+
+                        #product-img:hover{
+                            border: solid;
+                            border-color: rgb(136, 136, 255);
+                        }
+
+                        #brand{
+                            font-size: 10px;
+                            margin-top: 1px;
+                            margin-bottom: 1px;
+                            flex: 1 1 70%;
+                            font-weight: lighter;
+                        }
+
+                        #desc{
+                            display:flex;
+                            flex-wrap: wrap;
+                        }
+
+                        #name{
+                            margin-top: 1px;
+                            margin-bottom: 0;
+                            flex: 0 0 100%;
+                            font-size: 15px;
+                        }
+
+                        #price{
+                            margin-top: 0;
+                            margin-bottom: 0;
+                            font-size:medium;
+                            font-weight: bold;
+                            text-align: center;
+                        }
+
+                        #box{
+                            width: 23vw;
+                            margin: 3px;
+                            margin-bottom: 30px;
+                        }
+
+                        #h1 {
+                            margin: 50px 0 20px 0;
+                        }
+
+                        #catalogue{
+                            margin-bottom: 50px;
+                        }
+                    </style>
+                </li>
+            {% endfor%}
+        </ul>
+    </div>
+    <style>
+        ul {
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        div#catalogue {
+            display: flex;
+        }
+    </style>
+{% endblock %}
+

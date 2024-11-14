@@ -1,0 +1,96 @@
+/* General container styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Header styling */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Button styling */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px; 
+    margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Form container styling */
+#classForm {
+    background: #f9f9f9;
+    padding: 20px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form input styling */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 100px;
+}
+
+/* Form button styling */
+.form-buttons {
+    margin-top: 10px;
+}
+
+#classForm button[type="submit"] {
+    background-color: #28a745;
+}
+
+#classForm button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+#cancelBtn {
+    background-color: #dc3545;
+    margin-left: 10px;
+}
+
+#cancelBtn:hover {
+    background-color: #c82333;
+}
+
+/* Class item styling */
+.class-item {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.class-item h2 {
+    margin-top: 0;
+}
+
+.class-item p {
+    margin: 5px 0;
+}

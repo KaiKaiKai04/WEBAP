@@ -1,0 +1,33 @@
+{% extends "base.html" %} <!--Creates the home template by extending from the base.html template, it will use base.html but with modifications-->
+{% block title %}Sparkle Minds - Home{% endblock %} <!--block title is the tab names-->
+
+{% block content %}
+<h1 class="display-4">Delete Transaction</h1>
+<div id="content">
+    <h3>Are you sure you want to delete the transaction?</h3>
+    <form method="POST" action="/tx/{{tx.get_tx_id()}}/delete">
+        <button>Delete</button>
+    </form>
+    <style>
+        h1 {
+            margin: 50px 0 20px 20px;
+        }
+
+        button {
+            background-color: rgb(255, 65, 65);
+            width: 100px;
+            height: fit-content;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 20px 20px 20px 0;
+            font-weight: bold;
+        }
+
+        #content {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-left: 20px;
+        }
+    </style>
+</div>
+
+{% endblock %}

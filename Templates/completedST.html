@@ -1,0 +1,8 @@
+{% extends "base.html" %} <!--Creates the home template by extending from the base.html template, it will use base.html but with modifications-->
+{% block title %}Sparkle Minds - Completed Support Ticket{% endblock %} <!--block title is the tab names-->
+
+{% block content %}
+<h4 class="display-4">Thank you for contacting us.</h4>
+<p>Your support ticket has been successfully submitted.</p>
+<p>Ticket Number: {{ ticket_number }}</p>
+{% endblock %}
